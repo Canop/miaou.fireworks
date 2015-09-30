@@ -25,6 +25,7 @@ function onLaunch(ct){
 
 	firework.text = removeDiacritics(firework.text.replace(/\s/g,' '));
 	if (firework.text.trim().length<2) throw "Too short";
+	if (firework.text.length>50) throw "Too long";
 	if (firework.text.split(' ').length>5) throw "Too many words";
 	if (!firework.flash) {
 		var lastFirework = lastFireworkPerRoom.get(infoKey);
@@ -36,11 +37,13 @@ function onLaunch(ct){
 	var sockets = ct.shoe.io().sockets;
 	if (!firework.global) sockets = sockets.in(room.id);
 	sockets.emit("fireworks.launch", firework);
+	ct.silent = true;
 }
 function onReplay(ct){
 	ct.shoe.emit('fireworks.reset');
 	var firework = lastFireworkPerRoom.get(ct.shoe.room.id) || lastFireworkPerRoom.get(0);
 	if (firework) ct.shoe.emit("fireworks.launch", firework);
+	ct.silent = true;
 }
 
 exports.registerCommands = function(cb){
