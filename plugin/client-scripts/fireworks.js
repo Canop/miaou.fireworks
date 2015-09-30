@@ -5,7 +5,9 @@
  *  MIT (X11) Licensed
  */
 
-miaou(function(locals, plugins, ws){
+miaou(function(gui, locals, plugins, ws){
+
+	if (gui.mobile) return;
 
 	var FONT_FIREWORK = {
 		"!":[[5,-40],[5,-30],[5,-20],[5,0]],
