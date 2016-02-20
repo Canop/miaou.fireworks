@@ -245,6 +245,7 @@ miaou(function(gui, locals, plugins, ws){
 	}
 	
 	Firework.launchText =  function(text) {
+		var i;
 		this.fireworks = [];
 		this.blockPointer = 0;
 		clearTimeout(this.gameloop);
@@ -261,7 +262,7 @@ miaou(function(gui, locals, plugins, ws){
 		var totalWidthOffset = [];
 		var widthCounter = 0;
 		totalWidthOffset[widthCounter] = 0;
-		for (var i=0;i<text.length;i++) {
+		for (i=0;i<text.length;i++) {
 			if (text.charAt(i)==' ') {
 				totalHeightOffset += this.TEXT_LINE_HEIGHT;
 				widthCounter++;
@@ -284,17 +285,17 @@ miaou(function(gui, locals, plugins, ws){
 		offsetTop += (windowHeight-totalHeightOffset)/6;
 		var offsetLeft = 0;
 		var heightOffsetCount = 0;
-		for (var i=0;i<text.length;i++) {
+		for (i=0;i<text.length;i++) {
 			if (text.charAt(i)==' ') {
 				heightOffsetCount++;
 				offsetTop = offsetTop - this.TEXT_LINE_HEIGHT;
 				offsetLeft = 0;
 			} else {
-				var maxWidthOffset = 0;
-				var charDots = FONT_FIREWORK[text.charAt(i)];
+				maxWidthOffset = 0;
+				charDots = FONT_FIREWORK[text.charAt(i)];
 				if (!charDots) continue;
-				for (var j=0;j<charDots.length;j++) {
-					var chararr = charDots[j];
+				for (j=0;j<charDots.length;j++) {
+					chararr = charDots[j];
 					this.allBlocks[this.allBlocks.length] = [(chararr[0]+offsetLeft)-(totalWidthOffset[heightOffsetCount]/2), chararr[1]-offsetTop];
 					maxWidthOffset = Math.max(maxWidthOffset, chararr[0]);
 				}
