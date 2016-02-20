@@ -310,6 +310,7 @@ miaou(function(gui, locals, plugins, ws){
 		$('<canvas id="fireworks-canvas" width="'+$(window).width()+'" height="'+($(window).height()-100)+'">')
 		.css({
 			position:"fixed", left:0, top:0, bottom:0, right:0, zIndex:500,
+			// background:"rgba(0,0,20,.0,0,20,.22)",
 			pointerEvents:"none"	
 		}).appendTo('body');
 		Firework.launchText(fw.text);
