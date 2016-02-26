@@ -9,6 +9,7 @@ miaou(function(gui, locals, plugins, ws){
 
 	if (gui.mobile) return;
 
+	/*eslint-disable */
 	var FONT_FIREWORK = {
 		"!":[[5,-40],[5,-30],[5,-20],[5,0]],
 		"\"":[[20,-40],[20,-30],[5,-40],[5,-30]],
@@ -95,8 +96,9 @@ miaou(function(gui, locals, plugins, ws){
 		"8":[[35,-35],[25,-40],[35,-25],[15,-40],[35,-15],[25,-20],[5,-35],[35,-5],[15,-20],[5,-25],[25,0],[5,-15],[15,0],[5,-5]],
 		"9":[[35,-30],[25,-40],[15,-40],[35,-20],[25,-20],[35,-10],[5,-30],[15,-20],[5,-20],[25,0],[15,0],[5,0]]
 	};
-	
-	function Rocket(index) {
+	/*eslint-enable */
+
+	function Rocket(index){
 		this.index = index;
 		this.dx = 0;
 		this.dy = 0;
@@ -135,7 +137,7 @@ miaou(function(gui, locals, plugins, ws){
 		allBlocks : new Array(),
 		gameloop : 10,
 		
-		updateDisplay : function() {
+		updateDisplay : function(){
 			this.ctx.clearRect(0, 0, this.canvaswidth, this.canvasheight);
 			var firecount = 0;
 			for (var i=0;i<this.fireworks.length;i++) {
@@ -153,16 +155,16 @@ miaou(function(gui, locals, plugins, ws){
 			}
 		},
 
-		launchFirework : function(fw, dispersion, speed) {
+		launchFirework : function(fw, dispersion, speed){
 			fw.dx = dispersion;
 			fw.dy = speed;
 			fw.status = this.FIREWORK_LAUNCHED;
 		},
-		disperseFirework : function(fw, speed) {
+		disperseFirework : function(fw, speed){
 			fw.dx = speed * (0.5-Math.random());
 			fw.dy = speed * (0.5-Math.random()) + 1;
 		},
-		explodeFirework : function(fw) {
+		explodeFirework : function(fw){
 			fw.status = this.FIREWORK_EXPLODED;
 			fw.r = (Math.random() /2) + 0.5;
 			fw.g = (Math.random() /2) + 0.5;
@@ -182,10 +184,10 @@ miaou(function(gui, locals, plugins, ws){
 				this.disperseFirework(spark, Math.random()*this.FRAGMENT_SPREAD);
 			}
 		},
-		destroyFirework : function(fw) {
+		destroyFirework : function(fw){
 			this.fireworks[fw.index] = null;
 		},
-		displayFirework : function(fw) {
+		displayFirework : function(fw){
 			if (fw.y<0) this.destroyFirework(fw);
 			if (fw.status==this.FIREWORK_EXPLODED) {
 				this.ctx.beginPath();
@@ -200,7 +202,7 @@ miaou(function(gui, locals, plugins, ws){
 			}
 			fw.colour = "rgb(80, 80, 80)";
 			this.ctx.strokeStyle = fw.colour;
-			var forces = {x:0,y:-0.05};
+			var forces = {x:0, y:-0.05};
 			if (fw.status==this.FIREWORK_FRAGMENT) {
 				forces.y = this.GRAVITY/-100;
 				fw.colour = "rgb("+Math.round(fw.r*fw.brightness)+", "+Math.round(fw.g*fw.brightness)+", "+Math.round(fw.b*fw.brightness)+")";
@@ -230,7 +232,7 @@ miaou(function(gui, locals, plugins, ws){
 		}
 	}
 
-	Firework.addRocket = function() {
+	Firework.addRocket = function(){
 		if (this.blockPointer>=this.allBlocks.length) {
 			return;
 		}
@@ -244,7 +246,7 @@ miaou(function(gui, locals, plugins, ws){
 		setTimeout(Firework.addRocket.bind(Firework), 1000/this.DEPLOYMENT_RATE);
 	}
 	
-	Firework.launchText =  function(text) {
+	Firework.launchText =  function(text){
 		var i;
 		this.fireworks = [];
 		this.blockPointer = 0;
@@ -288,7 +290,7 @@ miaou(function(gui, locals, plugins, ws){
 		for (i=0;i<text.length;i++) {
 			if (text.charAt(i)==' ') {
 				heightOffsetCount++;
-				offsetTop = offsetTop - this.TEXT_LINE_HEIGHT;
+				offsetTop -= this.TEXT_LINE_HEIGHT;
 				offsetLeft = 0;
 			} else {
 				maxWidthOffset = 0;
