@@ -28,7 +28,7 @@ var launch = exports.launch = function(roomId, user, args, isServerAdmin){
 		global: global,
 		flash: flash
 	};
-	firework.text = removeDiacritics(firework.text.replace(/\s/g,' '));
+	firework.text = removeDiacritics(firework.text.replace(/\s/g, ' '));
 	var infoKey = firework.global ? 0 : roomId;
 	if (firework.text.trim().length<2) throw "Too short";
 	if (firework.text.length>50) throw "Too long";

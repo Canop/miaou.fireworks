@@ -1,15 +1,13 @@
-
 /* Some parts are taken from
  *  fireworks.js - Kenneth Kufluk (http://kenneth.kufluk.com/)
  *  http://js-fireworks.appspot.com/
  *  MIT (X11) Licensed
  */
-
 miaou(function(gui, locals, plugins, ws){
 
 	if (gui.mobile) return;
 
-	/*eslint-disable */
+	/*eslint-disable max-len, comma-spacing */
 	var FONT_FIREWORK = {
 		"!":[[5,-40],[5,-30],[5,-20],[5,0]],
 		"\"":[[20,-40],[20,-30],[5,-40],[5,-30]],
@@ -96,7 +94,7 @@ miaou(function(gui, locals, plugins, ws){
 		"8":[[35,-35],[25,-40],[35,-25],[15,-40],[35,-15],[25,-20],[5,-35],[35,-5],[15,-20],[5,-25],[25,0],[5,-15],[15,0],[5,-5]],
 		"9":[[35,-30],[25,-40],[15,-40],[35,-20],[25,-20],[35,-10],[5,-30],[15,-20],[5,-20],[25,0],[15,0],[5,0]]
 	};
-	/*eslint-enable */
+	/*eslint-enable max-len, comma-spacing*/
 
 	function Rocket(index){
 		this.index = index;
@@ -136,12 +134,12 @@ miaou(function(gui, locals, plugins, ws){
 		fireworks : [],
 		allBlocks : new Array(),
 		gameloop : 10,
-		
+
 		updateDisplay : function(){
 			this.ctx.clearRect(0, 0, this.canvaswidth, this.canvasheight);
 			var firecount = 0;
 			for (var i=0;i<this.fireworks.length;i++) {
-				if (this.fireworks[i]==null) continue; 
+				if (this.fireworks[i]==null) continue;
 				if (this.fireworks[i].status!=this.FIREWORK_EXPLODED) {
 					firecount++;
 				}
@@ -173,7 +171,7 @@ miaou(function(gui, locals, plugins, ws){
 			this.ctx.strokeStyle = "rgb(200, 200, 200)";
 			// add the fragments
 			var frags = Math.random() * this.FIREWORK_PAYLOAD;
-			for (var i=0;i<frags;i++) { 
+			for (var i=0;i<frags;i++) {
 				var spark = this.fireworks[this.fireworks.length] = new Rocket(this.fireworks.length);
 				spark.x = fw.x;
 				spark.y = fw.y;
@@ -205,7 +203,8 @@ miaou(function(gui, locals, plugins, ws){
 			var forces = {x:0, y:-0.05};
 			if (fw.status==this.FIREWORK_FRAGMENT) {
 				forces.y = this.GRAVITY/-100;
-				fw.colour = "rgb("+Math.round(fw.r*fw.brightness)+", "+Math.round(fw.g*fw.brightness)+", "+Math.round(fw.b*fw.brightness)+")";
+				var b = fw.brightness;
+				fw.colour = "rgb("+Math.round(fw.r*b)+", "+Math.round(fw.g*b)+", "+Math.round(fw.b*b)+")";
 				this.ctx.strokeStyle = fw.colour;
 				fw.brightness-=5;
 				if (fw.brightness<0) this.destroyFirework(fw);
@@ -245,7 +244,7 @@ miaou(function(gui, locals, plugins, ws){
 		this.blockPointer++;
 		setTimeout(Firework.addRocket.bind(Firework), 1000/this.DEPLOYMENT_RATE);
 	}
-	
+
 	Firework.launchText =  function(text){
 		var i;
 		this.fireworks = [];
@@ -298,7 +297,10 @@ miaou(function(gui, locals, plugins, ws){
 				if (!charDots) continue;
 				for (j=0;j<charDots.length;j++) {
 					chararr = charDots[j];
-					this.allBlocks[this.allBlocks.length] = [(chararr[0]+offsetLeft)-(totalWidthOffset[heightOffsetCount]/2), chararr[1]-offsetTop];
+					this.allBlocks[this.allBlocks.length] = [
+						(chararr[0]+offsetLeft)-(totalWidthOffset[heightOffsetCount]/2),
+						chararr[1]-offsetTop
+					];
 					maxWidthOffset = Math.max(maxWidthOffset, chararr[0]);
 				}
 				offsetLeft += maxWidthOffset+40;  //plus character spacing
@@ -306,7 +308,7 @@ miaou(function(gui, locals, plugins, ws){
 		}
 
 		this.gameloop = setInterval(Firework.updateDisplay.bind(Firework), 1000/this.FRAME_RATE);
-		this.addRocket();			
+		this.addRocket();
 	}
 
 	function launch(fw){
@@ -314,7 +316,7 @@ miaou(function(gui, locals, plugins, ws){
 		.css({
 			position:"fixed", left:0, top:0, bottom:0, right:0, zIndex:500,
 			// background:"rgba(0,0,20,.0,0,20,.22)",
-			pointerEvents:"none"	
+			pointerEvents:"none"
 		}).appendTo('body');
 		Firework.launchText(fw.text);
 	}
